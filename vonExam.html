@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <h3>간단한 계산기</h3>
+  <div id="exma">
+    <input v-model.number="test1" type="number">
+    <input v-model.number="test2" type="number">
+    <br/>
+    <button v-on:click="sum">덧셈계산</button>
+    <button v-on:click="minus">뺄셈계산</button>
+    <button v-on:click="multifly">곱셈계산</button>
+    <button v-on:click="division">나눗셈계산</button>
+    <p>결과는 {{result}}입니다</p>
+    <button @click="countUpBtn(10)">10씩 증가</button>
+    <button @click="countUpBtn(100)">100씩 증가</button>
+    <button @click="countUpBtn(1000)">1000씩 증가</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#exma',
+      data: {
+        result : 0,
+        test1 : 0,
+        test2 : 0
+      },
+      methods : {
+        sum : function(){
+          this.result = this.test1 + this.test2;
+        },
+        minus : function(){
+          this.result = this.test1 - this.test2;
+        },
+        multifly : function(){
+          this.result = this.test1 * this.test2;
+        },
+        division : function(){
+          this.result = this.test1 / this.test2;
+        },
+        countUpBtn : function(value){
+          this.result += value;
+        }
+      },
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  </head>
+  <body>
+    <!-- Mustache 콧수염 : 가져가서 사용할 데이터를 넣는 곳 -->
+    <!-- {{}} -->
+    <div id="app">
+      <p>{{myText}}</p>
+      <!-- v-text -->
+      <!-- innerText와 비슷하다 : 문자로 인식-->
+      <p v-text="myText"></p>
+      <!-- innerHTM와 비슷하다 : 태그가 존재하면 태그 인식-->
+      <p v-html="myText"></p>
+      <!-- 디렉티브 v-text, v-html, v-on... -->
+      <button v-on:click="changeText">변경</button>
+    </div>
+    <!-- div를 벗어나면 사용할 수 없다 -->
+    <p>{{myText}}</p>
+
+
+    <script>
+      //인스턴스 생성
+      //div안에 붙힌 것, div를 벗어나면 인식을 하지 못한다
+      new Vue({
+        el: "#app",
+        data: {
+          myText: "Hello!!",
+        },
+        methods: {
+          changeText: function () {
+            this.myText = '<button type="button">추가</button>';
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

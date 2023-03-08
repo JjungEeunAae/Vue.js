@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="myName" placeholder="name">
+    <p>나는 {{myName}} 입니다.</p>
+    <textarea v-model="myText"></textarea>
+    <p>문장 : {{myText}}</p>
+    <p>문자수 : {{myText.length}}</p>
+    
+    <label>
+      <input type="checkbox" v-model="myCheck">
+      체크박스의 상태 : {{myCheck}}
+    </label>
+
+    <br/>
+    <label>
+      <input type="checkbox" v-model="myChecks" value="red">
+      빨간색
+    </label>
+    <label>
+      <input type="checkbox" v-model="myChecks" value="green">
+      초록색
+    </label>
+    <label>
+      <input type="checkbox" v-model="myChecks" value="blue">
+      파란색
+    </label>
+    <br/>
+    선택한 색 : {{myChecks}}
+    <br/>
+    <br/>
+    <label>
+      <input type="checkbox" v-model="myAgree">
+      동의합니다.
+    </label>
+    <!-- "myAgree == false" 체크가 안되어있으면 송신버튼이 비활성화, 체크하면 true가 되어 송신버튼 활성화 -->
+    <button type="button" v-bind:disabled="!myAgree">송신</button>
+
+    <br/>
+    <br/>
+    <label>
+      <input type="radio" value="red" v-model="picked">
+      빨간색
+    </label>
+    <label>
+      <input type="radio" value="green" v-model="picked">
+      초록색
+    </label>
+    <label>
+      <input type="radio" value="yellow" v-model="picked">
+      노란색
+    </label>
+    <br/>
+    <p>{{picked}} 선택</p>
+
+    <label>
+      <input type="radio" value="담비.jpg" v-model="fileName">
+      담비
+    </label>
+    <label>
+      <input type="radio" value="담비2.jpg" v-model="fileName">
+      담비2
+    </label>
+    <div style="width:200px">
+      <img v-bind:src="fileName">
+    </div>
+
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        myName : 'test',
+        myText : 'test',
+        myCheck : false,
+        //배열을 통해 체크하는 만큼 해당되는 value 값이 표기된다
+        myChecks : [],
+        myAgree : false,
+        picked : 'red',
+        fileName : ''
+      }
+    })
+  </script>
+</body>
+</html>

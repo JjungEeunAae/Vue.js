@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  <style>
+    .myBack{
+      background-color: yellow;
+      color: red;
+      font-size: 150%;
+    }
+
+    .strike-through{
+      text-decoration: underline;
+      color:rgb(179, 174, 228);
+    }
+
+    .myStyle{
+      text-decoration: underline;
+    }
+
+    .myStyle2{
+      color : rgb(179, 174, 228);
+    }
+
+
+    .underLine{
+      color: blue;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <a v-bind:href="myUrl">네이버로 이동</a>
+    <img v-bind:src="myImg">이미지표기
+    <p v-bind:align="myLeft">왼쪽정렬</p>
+    <p v-bind:align="myRight">오른쪽정렬</p>
+    <p v-bind:align="myCenter">가운데정렬</p>
+    <p v-bind:style="{color: myColor}">인라인 스타일 글자색 빨간색</p>
+    <p v-bind:style="{fontSize : myFontSize}">인라인 스타일 글짜크기 150% 크게</p>
+    <p v-bind:class="{myBack}">인라인 스타일로 글자크기 150%, 빨간색, 배경노랑색</p>
+    <p v-bind:class="{myStyle, myStyle2}">blue underfine 지정</p>
+    <p v-bind:class="myUnderline">blue underfine, strike-through</p>
+  </div>
+
+  <hr>
+  <h3>교수님과 함께한 내용</h3>
+  <div id="app2">
+    <p>
+      <a v-bind:href="myLink">네이버로 이동</a>
+    </p>
+    <p>
+    <img v-bind:src="myImage">이미지표기
+    </p>
+    <p v-bind:align="leftAlign">왼쪽정렬</p>
+    <p v-bind:align="rightAlign">오른쪽정렬</p>
+    <p v-bind:align="centerAlign">가운데정렬</p>
+    <p v-bind:style="{color: rColor}">인라인 스타일 글자색 빨간색</p>
+    <p v-bind:style="{fontSize : fSize}">인라인 스타일 글짜크기 150% 크게</p>
+    <p v-bind:style="{color:rColor, fontSize:fSize, backgroundColor:BColor}">인라인 스타일로 글자크기 150%, 빨간색, 배경노랑색</p>
+    <p v-bind:class="underLineText">blue underfine 지정</p>
+    <p v-bind:class="[underLineText, srtikeClass]">blue underfine, strike-through</p>
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app2',
+      data : {
+        myLink : 'https//www.naver.com',
+        myImage : '담비.jpg',
+        leftAlign : 'left',
+        rightAlign : 'right',
+        centerAlign : 'center',
+        rColor : 'red',
+        fSize : '150%',
+        BColor : 'yellow',
+        underLineText : 'underLine',
+        srtikeClass : 'strike-through'
+      }
+    })
+
+
+
+    new Vue({
+      el : '#app',
+      data : {
+        myUrl : 'https://naver.com',
+        myImg : '담비.jpg',
+        myLeft : 'left',
+        myRight : 'right',
+        myCenter : 'center',
+        myColor : 'red',
+        myFontSize : '150%',
+        myBack : 'myBack',
+        myStyle : 'myStyle',
+        myStyle2 : 'myStyle2',
+        myUnderline : 'strike-through'
+      }
+    })
+
+  </script>
+</body>
+</html>
