@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h3>관심 받고 있는 언어 랭킹</h3>
+    <table>
+      <thead>
+        <!-- 연도 -->
+        <th v-for="item in header">
+          {{item}}
+        </th>
+      </thead>
+      <tbody>
+        <!-- 언어별 순위 -->
+        <tr v-for="line in ranking">
+          <td v-for="item in line">
+            {{item}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <div id="app2">
+    <h3>목록을 구성하는 데이터 변경시 목록 업데이트</h3>
+    <ul>
+      <li v-for="item in myArray">
+        <!-- 배열 값 -->
+        {{item}}
+      </li>
+    </ul>
+    <button @click="addList">맨 뒤에 추가</button>
+    <button v-on:click="addObj(3)">네번째에 추가</button>
+    <button v-on:click="changeObj(0)">첫번째에 변경</button>
+    <button @click="deleteObj(1)">두번째를 삭제</button>
+  </div>
+
+  <script>
+    let data = ['첫번째', '두번째', '세번째', '네번째', '다섯번째'];
+
+    new Vue({
+      el:'#app2',
+      data : {
+        myArray : data,
+
+      },
+      methods : {
+        addList : function(){
+          //myArray 맨 뒤에 데이터를 추가할 때 쓰는 것
+          //자바스크립트에 내용을 가져와서 사용
+          this.myArray.push('[맨 뒤에 추가]');
+        },
+        addObj : function(index){
+          this.myArray.splice(index, 0, ['추가']);
+        },
+        changeObj : function(index){
+          this.myArray.splice(index, 1, ['변경']);
+        },
+        deleteObj : function(index){
+          this.myArray.splice(index, 1);
+        }
+      }
+    })
+
+
+    let headerData = ["프로그래밍언어", 2018, 2013, 2008, 2003, 1998];   //th
+    let rankingData = [                                               //td
+                        ['java', 1, 2, 1, 1, 16],
+                        ['C', 2, 1, 2, 2, 1],
+                        ['C+', 3, 4, 3, 3, 2],
+                        ['Python', 4, 7, 6, 11, 23],
+                        ['JavaScript', 7, 10, 8, 7, 20]
+                      ];
+
+    new Vue({
+      el : '#app',
+      data : {
+        header : headerData,
+        ranking : rankingData
+      }
+    })
+  </script>
+</body>
+</html>
