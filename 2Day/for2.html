@@ -44,7 +44,44 @@
     <button @click="deleteObj(1)">두번째를 삭제</button>
   </div>
 
+  <hr>
+
+  <div id="app3">
+    <ul>
+      <li v-for="item in myArray">
+        <!-- 배열 데이터를 나열 -->
+        {{item}}
+      </li>
+    </ul>
+    <button @click="sortData(myArray)">정렬</button>
+  </div>
+
   <script>
+    new Vue({
+      el : '#app3',
+      data : {
+        myArray : ['one', 'two', 'three', 'four', 'five']
+      },
+      methods : {
+        sortData : function(dataList){
+          dataList.sort(function(a,b){
+            // 5, 10, 1, 5
+            // 5 < 10 -> return -1
+            //     ㄴ> 조건이 true일 경우 순서가 유지된다( 5, 10 )
+            // 10 < 1 -> return 1
+            //     ㄴ> 두개 비교했을 때 1이 반환되면 순서가 오름차순으로 바뀐다 ( 1, 10 )
+            // -------------------------------------
+            // 부등호를 반대로 바꾸면 내림차순 정렬이 됩니다
+
+            // a < b return -1
+            return ( a < b ? -1 : 1); //오름차순 정렬
+            //내림차순정렬
+            //return ( a > b ? -1 : 1);
+          }
+        )}
+      }
+    })
+//-------------------------------------
     let data = ['첫번째', '두번째', '세번째', '네번째', '다섯번째'];
 
     new Vue({
@@ -71,7 +108,7 @@
       }
     })
 
-
+//-------------------------------------
     let headerData = ["프로그래밍언어", 2018, 2013, 2008, 2003, 1998];   //th
     let rankingData = [                                               //td
                         ['java', 1, 2, 1, 1, 16],

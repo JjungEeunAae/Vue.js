@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in array">
+        {{item}}
+      </li>
+    </ul>
+    <button v-on:click="evDate()">짝수만 표시</button>
+
+    <h3>숫자 배열 조작과 구구단 출력</h3>
+    <ul>
+      <li v-for="item in myArray">
+        {{item}}
+        <button @click="chang(item)">변경</button>
+        <button v-on:click="deletes(item)">삭제</button>
+      </li>
+    </ul>
+    <button v-on:click="add()">추가</button>
+    <button>정렬</button>
+    <button v-on:click="showgugu()">구구단보이기</button>
+    <ul v-if="show">
+        <p v-for="item in 9" v-bind="no">
+          {{no}} X {{item}} = {{no * item}}
+        </p>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        array : [1, 2, 3, 4, 5, 6],
+        myArray : [2, 4, 6, 8, 10],
+        no : 0,
+        show : false,
+      },
+      methods: {
+        evDate : function(){
+          this.array = this.array.filter(function(val){
+            return val % 2 == 0;
+          })
+        },
+        chang : function(item){
+          this.no = item;
+        },
+        deletes : function(item){
+          //this.no = 0;
+          this.myArray = this.myArray.filter(function(val){
+            return item != val;
+          })
+        },
+        add : function(){
+          this.no++;
+        },
+        showgugu : function(){
+          return this.show == true ? this.show = false : this.show = true;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

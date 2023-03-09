@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <!-- myArray 1~10까지 데이터를 담고 있음 -->
+      <!-- 짝수만 li tag에 등록 -->
+      <!-- <li v-for="item in myArray" v-if="item%2==0">
+        {{item}}
+      </li> -->
+      <li v-for="item in myArray">
+        {{item}}
+      </li>
+    </ul>
+    <button v-on:click="eventDate()">짝수만 표시</button>
+  </div>
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        myArray : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      methods : {
+        eventDate : function(){
+          //val은 myArray 배열에 들어있는 1~10의 값을 차례대로 받는다
+          //                      자바스크립0트의 필터
+          this.myArray = this.myArray.filter(function (val){
+            //조건이 true이면 myArray에 새로운 배열을 생성한다
+            return val % 2 == 0;
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>

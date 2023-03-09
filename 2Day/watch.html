@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>금지 문자는 「{{forbiddentText}}」</p>
+    <textarea v-model="inputText"></textarea>
+    <br>
+    <p>앞으로 {{restSet}}</p>
+    <button v-on:click="startTimer">START</button>
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        forbiddentText : '야옹',
+        inputText : '미옹미오오오옹미오옼',
+        restSet : 10,
+        timerObj : null
+      },
+      methods : {
+        startTimer : function(){
+          // clearInterval : 멈춘다는 의미
+          clearInterval(this.timerObj);
+          this.restSet = 10;
+          //얼마의 주기만큼 실행문으로 실행시킬 것인가(고유한 ID를 가진다)
+          this.timerObj = setInterval(()=>{
+            this.restSet--; //1초마다 실행할 내용
+          }, 1000); // = 1초 
+        },
+      },
+      //watch 안에 있는 부분이 변화될 때마다 해당 function을 실행하겠다
+      watch:{
+        restSet: function(){
+          if(this.restSet <= 0){
+            alert('제한시간입니다.');
+            clearInterval(this.timerObj);
+          }
+        },
+        inputText : function(){
+          //                                금지된 단어
+          var pos = this.inputText.indexOf(this.forbiddentText);
+          if(pos >= 0) {
+            alert(this.forbiddentText + "는 할 수 없습니다.");
+            //alert을 띄운 후 입력한 금지단어를 textarea에 사라진다
+            this.inputText = this.inputText.substr(0, pos);
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

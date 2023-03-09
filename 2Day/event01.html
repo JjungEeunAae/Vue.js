@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .tag{
+      margin : 10px;
+      border : 1px solid gray
+    }
+  </style>
+</head>
+<body>
+    <!-- a 태그 이벤트 전파 중지 -->
+    <a id="btn" href="https://www.naver.com" v-on:click="warn('Form cannot be submitted yet',$event)">Submit</a>
+
+    <hr>
+
+    <!-- v-bind:class="style" : 스타일을 몽땅 가져오는것 -->
+    <div id="app2" v-bind:class="style">
+      <form action="https://www.naver.com/" :class="style" 
+          @click="printMessage('form태그 선택')" v-on:submit.privent>
+        <div :class="style" v-on:click.stop = "printMessage('div 태그 선택')">
+          <p v-bind:class="style" @click.once="printMessage('p 태그 선택')">
+            <a href="https://www.google.com/" :class="style" 
+              v-on:click.prevent="printMessage('a태그 선택')">구글</a>
+          </p>
+        </div>
+      </form>
+
+      <div :class="style">
+        <button @click="changeMessage($event), alertExcute()">
+          <span>
+            이벤트 핸들러 복수 실행
+          </span>
+        </button>
+      </div>
+    </div>
+
+  <script>
+    new Vue({
+      el : '#app2',
+      data : {
+        style : 'tag',
+        Message : ''
+      },
+      methods : {
+        printMessage : function(message){
+          this.message = message;
+          alert(message);
+        },
+        changeMessage : function(event){
+          if(event){
+            console.log(event.target);          //button
+            console.log(event.currentTarget);   //이벤트 관련 실행되는 대상
+            this.message = "이벤트 실행 target : " + event.target;
+          }
+        },
+        alertExcute : function(){
+          alert('이벤트 핸들러 복수 등록');
+        }
+      }
+    })
+
+//---------------------------------------------
+    new Vue({
+      el : '#btn',
+      methods : {
+        warn : function(message, event){
+          if(event){
+            console.log(event.target);
+            console.log(event.currentTarget);
+            // .preventDafault() ----> 이벤트 중지 / 자바스크립트 문법
+            event.preventDefault();
+          }
+          alert(message);
+        }
+      }
+    })
+  </script>
+</body>
+</html>

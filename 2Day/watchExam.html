@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h4>제한 시간내에 문자 입력하기</h4>
+  <div id="app">
+    <p>금지문자(,로 나누어 복수입력가능) <input type="text" v-model="inputText"></p>
+    <p>제한시간을 입력하세요(초)
+      <input type="text" v-model.numer="startTime">
+      <button @click="startTimerBtn">시작</button>
+    </p>
+    <p>남은시간 : {{restSet}}초</p>
+    <textarea cols="30" rows="10" v-model="inputTexts" :disabled="isText"></textarea>
+    <p>{{remaing}}개의 문자를 입력하였습니다.</p>
+    <p>벌점 : {{resultScore}} (금자문자 1개당 12점)</p>
+  </div>
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        inputText : '',
+        startTime : 0,
+        timerObj : null,
+        restSet : 0,
+        isText:true,
+        remaing : 0,
+        inputTexts: '',
+        prohibitCount : 0,
+      },
+      methods : {
+        startTimerBtn : function(){
+          if(this.timerProhibit <= 0){
+            alert("제한시간을 입력해주세요");
+          } else {
+            this.isText=false;
+            this.start();
+          }
+        },
+        start : function(){
+          this.restSet = this.startTime;
+          this.timerObj = setInterval(()=> {
+            this.restSet --;
+          },1000);
+        }
+      },
+      computed: {
+        //벌점
+        resultScore(){
+          return this.prohibitCount * 12;
+        }
+      },
+      watch : {
+        //입력한 문자열을 감시한다
+        inputTexts(){
+          var arrayData = this.inputText.split(",");
+          for(let i = 0; i < arrayData.length; i++){
+            let pos = this.inputTexts.indexOf(arrayData[i]);
+            if(pos > -1){
+              alert(arrayData[i] + " 는 입력할 수 없습니다.");
+              this.inputTexts = this.inputTexts.substr(0,pos);
+              this.restSet += 10;
+              this.prohibitCount++;
+            }
+          }
+        },
+        //남은 초를 감시한다
+        restSet(){
+          if(this.restSet <= 0){
+            alert("제한시간입니다.");
+            clearInterval(this.timerObj);
+            this.remaing = this.inputTexts.length;
+            this.isText = true;
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
