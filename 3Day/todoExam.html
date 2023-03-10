@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+  <style>
+    .donestyle{
+      text-decoration: line-through;
+      color: palevioletred;
+    }
+  </style>
+</head>
+<body>
+  <h3>좀 더 좋아진 ToDo리스트</h3>
+  <div id="app">
+    <div v-for="(todo, index) in todos">
+      <label>
+        <input type="checkbox" v-model="todo.done">
+        <span :class="{donestyle:todo.done}">
+          {{todo.text}} (완료일 {{todo.year}})
+        </span>
+        <button v-on:click="extendDate(index)">완료일 연장</button>
+      </label>
+    </div>
+
+    <p v-on:keyup.enter="addToDo">
+      <input type="text" placeholder="할일" v-model.trim="addText"> / 
+      <input type="text" placeholder="완료일" v-model.number.trim="addYear">(YYYYMMDD형식으로입력)
+    </p>
+
+    <button @click="cleanToDo">처리완료삭제</button>
+    <button @click="textSort(todos)">할일순으로 정렬</button>
+    <button @click="yearSort(todos)">완료일로 정렬</button>
+
+    <p>{{todos.length}}건 중 {{remaining}} 처리, {{overdate}} 완료일 지남</p>
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        addText : '',
+        addYear : '',
+        todos : [
+          {done : false , text : '빵사기', year : '20231001'},
+          {done : false , text : '커피사기', year : '20230702'},
+          {done : false , text : '공부하기', year : '20230701'},
+          {done : false , text : '놀기', year : '20230301'},
+          {done : false , text : '영화보기', year : '20230221'}
+        ],
+      },
+      computed : {
+        remaining : function(){
+          return this.todos.filter(function(val){
+            return val.done;
+          }).length;
+        },
+        overdate: function(){ //기한을 넘긴 개수
+          return this.todos.filter(function(val){
+              var date = new Date(); //날짜 객체 생성
+              var year = date.getFullYear();
+              var month = new String(date.getMonth()+1); //0 부터 시작함
+              var day = new String(date.getDate());
+              //MM-DD형식
+              if(month.length == 1) month = "0" + month;
+              if(day.length == 1) day = "0" + day;
+              var due_date = year + month + day;
+              //필터 조건식
+              return val.year < due_date; //오늘 날짜보다 작은 Data의 날짜들
+          }).length; //그 개수만큼 리턴
+      }
+      },
+      methods : {
+        //처리완료삭제
+        cleanToDo : function(){
+          this.todos = this.todos.filter(function(val){
+            return val.done == false;
+          })
+        },
+        //완료일로 정렬
+        yearSort : function(dataList){
+          dataList.sort( function(a,b) {
+            return ( a.year < b.year ? -1 : 1 );
+          })
+        },
+        //할일순으로 정렬
+        textSort : function(dataList){
+          dataList.sort(function(a,b){
+            return( a.text < b.text ? -1 : 1 );
+          })
+        },
+        //추가기능
+        addToDo : function(){
+          if(this.addYear){
+            this.todos.push({done:false, text:this.addText, year:this.addYear})
+            this.addText='';
+            this.addYear='';
+          }
+        },
+        //기간연장기능
+        extendDate: function(index){ //기한 연장 기능
+          var str_date = this.todos[index].year; //해당 인덱스의 날짜값
+          var y = str_date.substr(0,4); //연도
+          var m = str_date.substr(4,2); //월
+          var d = str_date.substr(6,2); //일
+          //위 변수를 통해서 날짜 객체를 만든다.
+          var date = new Date(Date.parse(new Date(y, m-1, d))+1*1000*60*60*24); //1일 후
+          var year = date.getFullYear();
+          var month = new String(date.getMonth()+1);
+          var day = new String(date.getDate());
+          if(month.length==1) month = "0" + month;
+          if(day.length==1) day = "0" + day;
+          var due_date = year + month + day;
+
+          this.todos[index].year = due_date; //data 값 교체
+        },
+      }
+    })
+
+  </script>
+</body>
+</html>

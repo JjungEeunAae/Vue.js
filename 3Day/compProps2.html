@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>compProps2</title>
+</head>
+<body>
+  <div id="app">
+    <my-component my-name="또치"></my-component>
+    <my-component my-name="둘리"></my-component>
+    <my-component></my-component>
+  </div>
+
+<hr>
+
+  <div id="app2">
+    <!-- JS : for in , for of 가 Vue에도 사용이 가능하지만 for in을 사용하는걸 추천한다 -->
+    <!--                       new Vue의 배열                               -->
+    <my-component v-for="(item, index) in myArray" :my-name="item"></my-component>
+  </div>
+
+  <script>
+    let MyComponent2 = {
+      template : `<p>나는 {{myName}} 입니다.</p>`,
+      props : {
+        myName : String
+      },
+      created : function(){
+        if(this.myName == null){
+          this.myName = '도우너';
+        }
+      }
+    }
+
+    new Vue({
+      el : '#app2',
+      data : {
+        myArray : ['또치', '희동', '길동', '마이콜']
+      },
+      components : {
+        'my-component' : MyComponent2
+      }
+    })
+
+//----------------------------------------------------------
+    const MyComponent = {
+      template : `<p> 나는 {{myName}} 입니다.</p>`,
+      //props : ['']
+      props : { //속성검증
+        myName : String
+      },
+      created : function(){  //Vue 인서턴스 생성 후 실행
+        if(this.myName == null){
+          this.myName = '도우너'
+        }
+      }
+    }
+
+    new Vue({
+      el : '#app',
+      components : {
+        'my-component' : MyComponent
+      }
+    })
+  </script>
+</body>
+</html>

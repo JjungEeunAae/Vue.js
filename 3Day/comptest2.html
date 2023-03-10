@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>comptest2</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 전역 컴포넌트 -->
+    <my-component></my-component>
+
+    <!-- 지역 컴포넌트-->
+    <local-component></local-component>
+  </div>
+
+  <div id="app2">
+    <!-- 전역 컴포넌트 -->
+    <my-component></my-component>
+
+    <!-- 지역 컴포넌트-->
+    <local-component></local-component>
+
+    <instance-component></instance-component>
+  </div>
+
+  <script>
+    //전역 컴포넌트 선언
+    //앞으로 생성될 모든 vue 인스턴스에서 사용할 수 있는 컴포넌트
+    Vue.component('my-component',{
+      template : `<div>안녕, 전역 컴포넌트</div>`
+    })
+
+    //지역 컴포넌트 선언
+    //개별 vue 인스턴스에서 사용할 수 있는 컴포넌트
+    //== 내가 vue 생성할 때 컴포넌트 등록해야 사용할 수 있다는 의미
+    const component = {
+      template: `<div>안녕, 지역 컴포넌트</div>`,
+    };
+
+
+    //vue생성
+    new Vue({
+      el : '#app',
+      components : {
+        //local-component(html) == localComponent(JS)
+        'localComponent': component,
+      }
+    })
+
+    new Vue({
+      el : '#app2',
+      components : {
+        //지역으로 쓸 수 있는게 하나 더 있다
+        //html에서 사용할 컴포넌트 이름 : {컴포넌트 내용}
+        'instance-component' : {
+          template : `<div style="border:1px solid black;">
+                        <span>
+                          <h3>
+                            인스턴스로 등록한 컴포넌트
+                          </3>
+                        </span>
+                      </div>`
+        }
+      },
+    });
+  </script>
+</body>
+</html>
