@@ -27,7 +27,7 @@
     </div>
 
     <p v-on:keyup.enter="addToDo">
-      <input type="text" placeholder="할일" v-model.trim="addText"> / 
+      <input type="text" placeholder="할일" v-model.trim="addText"> /
       <input type="text" placeholder="완료일" v-model.number.trim="addYear">(YYYYMMDD형식으로입력)
     </p>
 
@@ -95,9 +95,27 @@
         //추가기능
         addToDo : function(){
           if(this.addYear){
-            this.todos.push({done:false, text:this.addText, year:this.addYear})
-            this.addText='';
-            this.addYear='';
+            //완료일
+            let due_date = this.addYear;
+            if(this.addYear == ""){
+              let date = new Date();
+              date = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);
+
+              let year = date.getFullYear();
+              let month = String(date.getMonth() + 1);
+              let day = String(date.getDate());
+
+              if(month.length == 1) month = "0" + month;
+              if(day.length == 1) day = "0" + day;
+              due_date = year + month + day;
+              console.log(due_date);
+            }
+            this.todos.push({
+              done : false,
+              text : this.addText,
+              year : due_date
+            });
+            this.addText = '';
           }
         },
         //기간연장기능
