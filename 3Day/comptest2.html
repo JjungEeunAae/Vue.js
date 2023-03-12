@@ -8,6 +8,7 @@
   <title>comptest2</title>
 </head>
 <body>
+  <h3>app</h3>
   <div id="app">
     <!-- 전역 컴포넌트 -->
     <my-component></my-component>
@@ -16,6 +17,9 @@
     <local-component></local-component>
   </div>
 
+  <br/>
+
+  <h3>app2</h3>
   <div id="app2">
     <!-- 전역 컴포넌트 -->
     <my-component></my-component>
@@ -24,6 +28,15 @@
     <local-component></local-component>
 
     <instance-component></instance-component>
+  </div>
+
+  <br/>
+  <h3>app3</h3>
+  <div id="app3">
+    <my-component></my-component>
+
+    <!-- 지역 컴포넌트-->
+    <local-component></local-component>
   </div>
 
   <script>
@@ -63,9 +76,20 @@
                           </3>
                         </span>
                       </div>`
-        }
+        },
+        'localComponent': component,
       },
     });
+
+
+    new Vue({
+      el : '#app3',
+      components : {
+        'localComponent': component
+      }
+    });
+
+
   </script>
 </body>
 </html>
