@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js"></script>
+  <script src="vue-router.js"></script>  
+</head>
+<body>
+  <div id="app">
+    <h1>Hello Vue-Router</h1>
+    <p>
+      <router-link to="/foo">Go To Foo</router-link>
+      <router-link to="/bar">Go To Bar</router-link>
+    </p>
+    <!-- router가 랜더링 될 부분 정의 -->
+    <!-- 각 컴포넌트들이 공통적으로 사용할 부분을 정의 -->
+    <!-- 컴포넌트를 여러개 모아두는 장소 -->
+    <router-view></router-view>
+  </div>
+
+  <script>
+    // router에 사용할 component 작성
+    const Foo = {
+      template : `<div>foo</div>`,
+    }
+    const Bar = {
+      template : `<div>bar</div>`
+    }
+
+    // 컴포넌트를 묶을 수 있는 변수 선언
+    const routes = [
+      {
+        path : '/foo', component : Foo
+      },
+      {
+        path : '/bar', component : Bar
+      }
+    ]
+
+    // router 인스턴스 생성
+    const router = new VueRouter({
+      routes
+    })
+
+    // Vue CLI를 쓰게되면 종종 쓰이는 방법이라 기억해두자
+    const app = new Vue({
+      router
+      //해당 div id에 붙힌다
+    }).$mount('#app')
+
+    // 기존 사용했던 방법
+    // const app = new Vue({
+    //   el : '#app',
+    //   router : router
+    // })
+  </script>
+</body>
+</html>
