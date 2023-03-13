@@ -7,18 +7,20 @@ import myBoardWrite from './components/myBoardWrite.js'
 import myBoardRead from './components/myBoardRead.js'
 
 let template = `
-                <my-header v-bind:parentData.sync="this.$data"></my-teader>
-                <my-board-list v-if="listOk"
-                  v-bind:object="dataArray['board']"
-                  v-on:board-read="boardRead"
-                  v-on:board-write="boardWrite"
-                  v-on:board-delete="boardDelete"></my-board-list>
-                <my-board-read v-if="readOk" 
-                  v-bind:object="boardInfo"
-                  v-on:board-list="boardList"></my-board-read>
-                <my-board-write v-if="writeOk" 
-                  v-on:board-list="boardList" 
-                  v-on:board-save="boardSave"></my-board-write>`
+                <div>
+                  <my-header v-bind:parentData.sync="this.$data"></my-header>
+                  <my-board-list v-if="listOk"
+                    v-bind:object="dataArray['board']"
+                    v-on:board-read="boardRead"
+                    v-on:board-write="boardWrite"
+                    v-on:board-delete="boardDelete"></my-board-list>
+                  <my-board-read v-if="readOk" 
+                    v-bind:object="boardInfo"
+                    v-on:board-list="boardList"></my-board-read>
+                  <my-board-write v-if="writeOk" 
+                    v-on:board-list="boardList" 
+                    v-on:board-save="boardSave"></my-board-write>
+                </div>`
 
 new Vue({
   el : '#app',

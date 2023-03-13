@@ -9,26 +9,33 @@ export default{
                   <input type="file" v-on:change="loadData($event)">
                   <button v-on:click="saveBoardList">게시판 저장하기</button>
                 </header>`,
+  //app.js : <my-header v-bind:parentData.sync="this.$data"></my-header>
   props : ['parentData'],
   methods : {
     loadData : function(event){ // 파일을 읽어들이는 메소드
-      console.log(event.target.files);
       let file = event.target.files[0].name; //파일에 대한 이름
       if(file){
-        fetch('data/'+file) //상대경로
+        fetch('/board2/data/'+file) //절대경로
         .then(response => response.json())
         .then(data => {
           //this.dataArray = data;
           // if(this.dataArray != null && this.dataArray['board'].length > 0){
           //     this.listOk = true;
           // }
-          
+          //--------------------------------------------
           this.parentData.dataArray = data;
-          if(this.parentData.dataArray != null && this.parentData.dataArray['board'].length > 0){
-              this.parentData.listOk = true;
-          }
+          // if(this.parentData.dataArray != null && this.parentData.dataArray['board'].length > 0){
+          //     this.parentData.listOk = true;
+          // }
+          
           //업데이트하라고 이벤트를 발생시긴다
           this.$emit('update:parentData', this.parentData);
+
+          //<router-link to="/boardList">이동</router-link>
+          // + 
+          //click까지 진행
+          //$router.push
+          this.$router.push({name : 'boardList'}); //강제로 보드리스트로 이동시킨다
         }).catch(err => console.log(err));
       }
     },
