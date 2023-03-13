@@ -24,7 +24,7 @@ export default{
     }
   },
   //컴포넌트가 생성 될 때, 부모컴포넌트의 데이터를 얻어온다.
-  // boardList Reading
+  // boardList Reading(부모의 데이터를 가져올 것이기 때문에)
   created : function(){
     this.object = this.$parent.getParentData();
   },

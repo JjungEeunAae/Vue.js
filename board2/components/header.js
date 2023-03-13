@@ -18,27 +18,20 @@ export default{
         fetch('/board2/data/'+file) //절대경로
         .then(response => response.json())
         .then(data => {
-          //this.dataArray = data;
-          // if(this.dataArray != null && this.dataArray['board'].length > 0){
-          //     this.listOk = true;
-          // }
-          //--------------------------------------------
+          //부모가 가진 모든 데이터리스트 중 dataArray를 가져와서 쓴다는 말
           this.parentData.dataArray = data;
-          // if(this.parentData.dataArray != null && this.parentData.dataArray['board'].length > 0){
-          //     this.parentData.listOk = true;
-          // }
-          
-          //업데이트하라고 이벤트를 발생시긴다
+          //업데이트하라고 이벤트를 발생시긴다, 자식이 들고와서 부모한테 준다 = 동일화
           this.$emit('update:parentData', this.parentData);
 
           //<router-link to="/boardList">이동</router-link>
-          // + 
+          // +
           //click까지 진행
           //$router.push
           this.$router.push({name : 'boardList'}); //강제로 보드리스트로 이동시킨다
         }).catch(err => console.log(err));
       }
     },
+    //저장버튼
     saveBoardList : function(){
       // 게시글을 담고 있는 변수 - Object로 가지고 있음
       let data = this.dataArray;

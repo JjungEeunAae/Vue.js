@@ -9,7 +9,7 @@ export default{
                     <td colspan="2">
                       <textarea style="width:100%;" v-model="content"></textarea>
                     </td>
-                  </tr>     
+                  </tr>
                 </table>
                 <router-link tag="button" style="float:right;" v-bind:to="{name : 'boardList'}">목록</router-link>
                 <button style="float:right;" v-on:click="boardSave">저장</button>
@@ -45,10 +45,8 @@ export default{
       dataList.push(boardInfo);
       this.$parent.setParentData(dataList);
 
-      //해당 URL로 이동하겠습니다라는 의미
-      this.$router.push({ name: "boardList" });
+      //저장을 클릭하면 해당 URL로 이동하겠습니다라는 의미
+      this.$router.push({ name : "boardList" });
     }
   }
 }
-
-//힌트

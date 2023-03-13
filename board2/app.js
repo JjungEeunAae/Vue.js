@@ -8,6 +8,8 @@ import myHeader from './components/header.js'
 // ---> router로 옮겨서 사용할 예정
 import router from './router/router.js'
 
+// this.$data : 부모가 가진 모든 data를 자식쪽에서 가져옴
+// 부모의 데이터에다가 불러온 데이터를 저장해야하므로 sync를 씀
 let template = `
                 <div>
                   <my-header v-bind:parentData.sync="this.$data"></my-header>
@@ -16,6 +18,7 @@ let template = `
 new Vue({
   el : '#app',
   template : template,
+  //데이터를 부모의 자식인 header.js로 던져준다
   data : {
     dataArray : {}, // 파일에서 읽은 데이터
   },
