@@ -1,6 +1,6 @@
 import main from '../components/main.js'
 import movieList from '../components/movieList.js'
-//import movieDetail from '../components/movieDetail.js'
+import movieDetail from '../components/movieDetail.js'
 
 export default new VueRouter({
   routes : [
@@ -14,10 +14,11 @@ export default new VueRouter({
       name : 'movieList',
       component : movieList
     },
-    // {
-    //   path : '/movieDetail',
-    //   name : 'movieDetail',
-    //   component : movieDetail
-    // },
+    {
+      path : '/movieDetail:movieCd',
+      name : 'movieDetail',
+      component : movieDetail,
+      props : true
+    },
   ]
 })

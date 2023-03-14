@@ -1,22 +1,20 @@
 export default{
   template : `<div>
                 <table id="list">
-                    <!-- HEADER -->
-                    <tr>
-                        <th>순위</th>
-                        <th>영화제목</th>
-                        <th>누적관객수</th>
-                        <th>개봉날짜</th>
-                        <th> </th>
-                    </tr>
-                    <!-- DATA LIST -->
-                    <tr v-for="item in movieArray" :key="item.rank">
-                        <td>{{ item.rank }}</td>
-                        <td>{{ item.movieNm }}</td>
-                        <td>{{ item.audiAcc }}</td>
-                        <td>{{ item.openDt }}</td>
-                        <td><button v-on:click="movieDelete(item.rank)">삭제</button></td>
-                    </tr>
+                  <tr>
+                    <th>순위</th>
+                    <th>영화제목</th>
+                    <th>누적관객수</th>
+                    <th>개봉날짜</th>
+                    <th> </th>
+                  </tr>
+                  <tr v-for="item in movieArray" :key="item.movieCd">
+                    <td>{{ item.rank }}</td>
+                    <router-link tag="td" v-bind:to="{name : 'movieDetail', params : {'movieCd' : item.movieCd}}">{{item.movieNm}}</router-link>
+                    <td>{{ item.audiAcc }} 명</td>
+                    <td>{{ item.openDt }}</td>
+                    <td><button v-on:click="movieDelete(item.movieCd)">삭제</button></td>
+                  </tr>
                 </table>
               </div>`,
   data : function(){
@@ -26,12 +24,12 @@ export default{
   },
   created : function(){
     this.movieArray = this.$parent.getParentData();
-    console.log(this.movieArray);
+    //console.log(this.movieArray);
   },
   methods : {
-    movieDelete : function(rank){ // 글삭제
+    movieDelete : function(movieCd){ // 글삭제
       for(let i = 0 ; i < this.movieArray.length ; i++){
-        if(this.movieArray[i].rank == rank){
+        if(this.movieArray[i].movieCd == movieCd){
           this.movieArray.splice(i,1);
         }
       }
