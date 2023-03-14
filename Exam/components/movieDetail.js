@@ -1,4 +1,5 @@
 export default{
+  //배우, 감독, 장르는 detail 객체에 또 다른 객체가 존재하기 때문에 v-for를 활용하여 안에 들어있는 정보를 모두 출력한다.
   template : `<div>
                 <h3>제목 : {{detail.movieNm}}</h3>
                 <ul>
@@ -9,9 +10,11 @@ export default{
                 </ul>
                 <router-link tag="button" style="float:right;" v-bind:to="{name : 'movieList'}">목록</router-link>
               </div>`,
+  // movieList에 선언되어있는 파라미터 값을 받아온다.
   props : ['movieCd'],
   data : function(){
     return {
+      // template에서 해당 객체를 활용하여 영화의 단건조회를 하기위함 ==> {actors : {peopleNm : A, peopleNmEn : B} , directors : {directors, peopleNmEn} }
       detail : {}
     }
   },

@@ -19,21 +19,25 @@ export default{
               </div>`,
   data : function(){
     return {
+      // movieArray의 배열
+      // v-for="item in movieArray"에서 하나씩 하나씩 꺼내쓰기 위해 배열을 선언하였다.
       movieArray : []
     }
   },
-  created : function(){
+  created : function() {
+    // 부모가 가지고있는 API 정보를 가져와서 사용한다
     this.movieArray = this.$parent.getParentData();
-    //console.log(this.movieArray);
   },
   methods : {
-    movieDelete : function(movieCd){ // 글삭제
+    // 글삭제
+    movieDelete : function(movieCd){
       for(let i = 0 ; i < this.movieArray.length ; i++){
         if(this.movieArray[i].movieCd == movieCd){
           this.movieArray.splice(i,1);
         }
       }
 
+      // 부모에게 데이터를 셋팅해준다
       this.$parent.setParentData(this.movieArray);
     },
   }
